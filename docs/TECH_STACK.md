@@ -31,3 +31,16 @@ This document outlines the primary technologies, frameworks, and platforms utili
 ## Project Structure
 
 This project's structure and agent interaction rules are defined in the `.ai_rules/` directory, providing a comprehensive framework for AI-assisted development.
+
+
+---
+
+### Code Examples
+
+For practical examples of how these technologies work together, see the following files:
+
+- **MCP Request:** [`mcp_request_example.json`](./examples/mcp_request_example.json)
+- **FastAPI Endpoint:** [`fastapi_endpoint_example.py`](./examples/fastapi_endpoint_example.py)
+- **LangGraph Setup:** [`langgraph_example.py`](./examples/langgraph_example.py)
+- **CopilotKit Component:** [`copilotkit_example.jsx`](./examples/copilotkit_example.jsx)
+
