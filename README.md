@@ -1,53 +1,51 @@
-# {{Project Name}} - A Project Template
+# {{Project Name}} - An AI-Assisted Project Template
 
-This is a template repository for new Python projects.
+This is a template repository for new Python projects designed for advanced, multi-agent AI development.
 
 ## How to Use This Template
 
-1.  **Click the "Use this template" button** on GitHub to create a new repository based on this template.
-2.  **Clone your new repository:**
+1.  **Clone this repository.**
+2.  **Set up a virtual environment:**
     ```bash
-    git clone https://github.com/your-username/your-new-repository-name.git
-    cd your-new-repository-name
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows use: .venv\\Scripts\\activate
     ```
-3.  **Rename the project:**
-    *   Search globally for `{{Project Name}}` and replace it with your actual project name.
-    *   Search globally for `{{project_slug}}` and replace it with a short, lowercase, hyphenated version of your project name (e.g., `my-awesome-project`).
-    *   Rename the main package directory if applicable (e.g., `src/{{project_slug}}`).
-4.  **Update project metadata:**
-    *   Modify `pyproject.toml` (if it exists) with your project's details (name, version, author, etc.).
-    *   Update any other configuration files (e.g., `setup.py`, `Makefile`).
-5.  **Install dependencies:**
-    *   Set up a virtual environment:
-        ```bash
-        python -m venv .venv
-        source .venv/bin/activate  # On Windows use: .venv\\Scripts\\activate
-        ```
-    *   Install project dependencies (e.g., `pip install -r requirements.txt` or `pip install .`).
-6.  **Customize the `.gitignore` file** to suit your project's needs.
-7.  **Update this `README.md`** to describe your project.
-8.  **Write your code!**
+3.  **Run the setup script:**
+    ```bash
+    python setup_project.py
+    ```
+    This script will prompt you to enter your project's name, slug, and author details, and it will automatically replace all placeholder values.
+4.  **Install dependencies:**
+    ```bash
+    pip install -e .
+    ```
+5.  **Delete the setup script:**
+    ```bash
+    rm setup_project.py
+    ```
+6.  **Write your code!**
+
+## Project Structure & Documentation
+
+This template is organized to support a robust, AI-driven development process.
+
+*   **AI Rules & Agents (`.ai_rules/`):** The core of the AI collaboration framework.
+    *   **Agent Instructions (`.ai_rules/agents/`):** Contains the operational guidelines for each AI agent (Memex, Warp, Jules, etc.).
+    *   **Development Rules (`.ai_rules/rules/`):** Defines the standards for architecture, security, testing, and more. See the [Master Index](.ai_rules/rules/index.md).
+*   **Source Code (`src/`):** The main application code resides here.
+*   **Tests (`tests/`):** Contains all automated tests.
+*   **Documentation (`docs/`):** Includes project documentation, such as:
+    *   [**Technology Stack**](docs/TECH_STACK.md): An overview of the key technologies used.
+    *   [**Code Examples**](docs/examples/): Practical examples and snippets.
+    *   [**PRD Template**](docs/PRD_TEMPLATE.md): A template for Product Requirements Documents.
 
 ## Placeholder Values
 
-This template uses the following placeholders that you should replace:
+The setup script will handle the replacement of these values:
 
-*   `{{Project Name}}`: The human-readable name of your project (e.g., "My Awesome Project").
-*   `{{project_slug}}`: A short, lowercase, hyphenated version of your project name, suitable for use in filenames, package names, etc. (e.g., `my-awesome-project`).
+*   `{{Project Name}}`: The human-readable name of your project.
+*   `{{project_slug}}`: A short, lowercase, hyphenated version of your project name.
 *   `{{author_name}}`: Your name or your organization's name.
 *   `{{author_email}}`: Your email address.
-
-## AI-Assisted Development Rules & Agent Guidelines
-
-This project template is designed for advanced AI-assisted development and incorporates a comprehensive set of rules and agent-specific guidelines. These are located in the `.ai_rules/` directory:
-
-*   **Master Development Rules:** For the complete set of development standards, architectural principles, persona-specific rules, and tooling guidelines, please refer to the master index at [`.ai_rules/rules/index.md`](./.ai_rules/rules/index.md).
-*   **Agent-Specific Instructions:** Guidelines for individual AI agents collaborating on this project (Memex, Warp 2.0, Jules, Gemini CLI) can be found in the `.ai_rules/agents/` directory. See:
-    *   [Memex Agent Instructions](./.ai_rules/agents/memex_agent.md)
-    *   [Warp 2.0 Agent Instructions](./.ai_rules/agents/warp_agent.md)
-    *   [Jules AI Agent Instructions](./.ai_rules/agents/jules_agent.md)
-    *   [Gemini CLI Agent Instructions](./.ai_rules/agents/gemini_cli_agent.md)
-
-Adherence to these documented rules and guidelines is crucial for all AI agents and human developers contributing to projects based on this template. The "Unified Cursor Rulebook" (contents now within `.ai_rules/rules/`) serves as the primary source of truth.
 
 Happy coding!
