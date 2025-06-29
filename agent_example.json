@@ -1,0 +1,67 @@
+{
+  "agent_id": "example-code-generator-v0.1",
+  "display_name": "Example Code Generation Agent",
+  "description": "An illustrative agent that can generate boilerplate code for different components.",
+  "version": "0.1.0",
+  "maintainer": "{{author_name}} <{{author_email}}>",
+  "protocols": {
+    "a2a_rpc_endpoint": "http://127.0.0.1:8002/a2a/rpc", // Example endpoint if this agent were http-based
+    "mcp_context_endpoint": "mcp://./agent/context" // Example relative MCP path if it exposes context
+  },
+  "capabilities": [
+    {
+      "name": "generate_python_class",
+      "description": "Generates a Python class with specified attributes and methods.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "class_name": { "type": "string", "description": "Name of the class" },
+          "attributes": { 
+            "type": "array", 
+            "items": { "type": "string" },
+            "description": "List of attribute names" 
+          },
+          "methods": { 
+            "type": "array", 
+            "items": { "type": "string" },
+            "description": "List of method names to scaffold"
+          }
+        },
+        "required": ["class_name"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "file_path": { "type": "string", "description": "Path to the generated file" },
+          "code": { "type": "string", "description": "The generated Python code" }
+        }
+      }
+    },
+    {
+      "name": "generate_react_component",
+      "description": "Generates a basic React functional component.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "component_name": { "type": "string", "description": "Name of the React component" },
+          "include_style_file": { "type": "boolean", "default": false }
+        },
+        "required": ["component_name"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "component_file_path": { "type": "string" },
+          "style_file_path": { "type": "string", "nullable": true }
+        }
+      }
+    }
+  ],
+  "authentication": {
+    "type": "none", // For local/example agents. Could be "apiKey", "oauth2" etc. for remote ones.
+    "documentation_url": "optional_url_to_auth_docs"
+  },
+  "modalities_supported": ["text/json", "text/plain"],
+  "status_endpoint": "http://127.0.0.1:8002/status", // Example status endpoint
+  "documentation_url": "optional_url_to_agent_full_docs"
+}
