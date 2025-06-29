@@ -16,4 +16,4 @@ This directory contains the complete set of development standards, architectural
 *   [Tooling](./08_TOOLING.md)
 *   [Multimodal UX](./09_MULTIMODAL_UX.md)
 *   [Three.js Optimization](./10_THREEJS_OPTIMIZATION.md)
-*   [Code of Conduct](./CODE_OF_CONDUCT.md)
+*   [Rust FFI](./11_RUST_FFI.md)
