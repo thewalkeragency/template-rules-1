@@ -2,7 +2,7 @@
 
 **Version:** 1.0
 **Last Updated:** YYYY-MM-DD
-**Author/Owner:** {{author_name}}
+**Author/Owner:** AI Developer
 **Status:** Draft | In Review | Approved
 
 ## 1. Introduction & Purpose
@@ -86,8 +86,8 @@
 
 | Version | Date       | Author          | Changes                                      |
 |---------|------------|-----------------|----------------------------------------------|
-| 0.1     | YYYY-MM-DD | {{author_name}} | Initial Draft                                |
-| 1.0     | YYYY-MM-DD | {{author_name}} | Approved version after review                |
+| 0.1     | YYYY-MM-DD | AI Developer | Initial Draft                                |
+| 1.0     | YYYY-MM-DD | AI Developer | Approved version after review                |
 
 ---
 

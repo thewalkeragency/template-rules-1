@@ -23,6 +23,20 @@ This document outlines the primary technologies, frameworks, and platforms utili
 - **FastAPI:** A modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints.
 - **Flask:** A lightweight WSGI web application framework in Python.
 
+## Python Project Setup Example
+
+For Python projects, you can use the following setup:
+
+1.  **Set up a virtual environment:**
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows use: .venv\\Scripts\\activate
+    ```
+2.  **Install dependencies:
+    ```bash
+    pip install -e .
+    ```
+
 ## Deployment & Infrastructure
 
 - **DigitalOcean:** A cloud infrastructure provider for deploying and scaling applications.

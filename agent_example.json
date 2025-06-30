@@ -3,7 +3,7 @@
   "display_name": "Example Code Generation Agent",
   "description": "An illustrative agent that can generate boilerplate code for different components.",
   "version": "0.1.0",
-  "maintainer": "{{author_name}} <{{author_email}}>",
+  "maintainer": "AI Developer <ai@developer.com>",
   "protocols": {
     "a2a_rpc_endpoint": "http://127.0.0.1:8002/a2a/rpc", // Example endpoint if this agent were http-based
     "mcp_context_endpoint": "mcp://./agent/context" // Example relative MCP path if it exposes context

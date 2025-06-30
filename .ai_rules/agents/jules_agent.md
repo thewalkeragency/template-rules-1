@@ -1,13 +1,13 @@
-# Agent Instructions for {{Project Name}}
+# Agent Instructions for memex.tech
 
 This document provides guidelines for AI agents working on projects generated from this template.
 
 ## Project Initialization
 
-1.  **Identify Placeholders:** This project template uses placeholders like `{{Project Name}}`, `{{project_slug}}`, `{{author_name}}`, and `{{author_email}}`.
+1.  **Identify Placeholders:** This project template uses placeholders like `memex.tech`, `memex-tech`, `AI Developer`, and `ai@developer.com`.
     *   When a new project is created from this template, your first task is to ask the user for the correct values for these placeholders.
     *   Replace all occurrences of these placeholders throughout the entire codebase (including this file, `README.md`, and any configuration files).
-2.  **Rename `src/{{project_slug}}`:** If a directory named `src/{{project_slug}}` exists, rename it to `src/actual-project-slug` using the value provided by the user.
+2.  **Rename `src/memex-tech`:** If a directory named `src/memex-tech` exists, rename it to `src/actual-project-slug` using the value provided by the user.
 
 ## Development Guidelines
 
@@ -36,7 +36,7 @@ This document provides guidelines for AI agents working on projects generated fr
 ## Specific Instructions for This Template
 
 *   **README.md:** After placeholder replacement, the initial "How to Use This Template" section in `README.md` should be updated or removed to reflect the actual project's documentation.
-*   **AGENTS.md:** This file (`AGENTS.md`) should also have its `{{Project Name}}` placeholder updated. The rest of its content should generally be preserved unless the project has very specific agent interaction protocols.
+*   **AGENTS.md:** This file (`AGENTS.md`) should also have its `memex.tech` placeholder updated. The rest of its content should generally be preserved unless the project has very specific agent interaction protocols.
 
 ## Communication
 

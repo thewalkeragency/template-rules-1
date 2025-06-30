@@ -1,0 +1,5 @@
+requests
+readability-lxml
+youtube-transcript-api
+markdownify
+PyYAML
