@@ -73,6 +73,20 @@ This structured approach to scaffolding ensures a consistent and well-organized 
 *   When designing agent interactions and services, aim for statelessness where practical. Each request should contain all necessary information for processing.
 *   This promotes scalability, resilience, and simplifies caching. Stateful interactions should be explicitly designed and justified.
 
+## 1.7. Agent Handover Protocol: Code Review & Human Clarification
+When an agent takes over a task or project from another agent (or from a human), the following protocol **must** be followed:
+
+1.  **Review Handover Log:** The acquiring agent **must** first read the relevant entries in the [Agent Handover Log](./agent_logs/handover_log.md) to understand the current status, decisions, and pending items.
+2.  **Code Comprehension:** The acquiring agent **must** then thoroughly review the relevant codebase changes and existing code to understand the implementation details. This involves reading the code, not just relying on summaries.
+3.  **Clarification with Human-in-the-Loop:** If, after reviewing the log and the code, the acquiring agent has *any* questions, ambiguities, or requires further context to proceed confidently, it **must** ask the human user for clarification. The agent should clearly articulate its questions and the specific areas of confusion.
+    *   **Do not proceed with coding if there is uncertainty.**
+    *   **Prioritize clarity over independent assumptions.**
+
+## 1.8. Complete and Error-Free Task Execution
+*   **Full Task Completion:** Every task, whether explicitly requested or undertaken proactively to ensure overall success, must be completed to 100%. No task is considered finished until it is fully functional, tested, and integrated without introducing new issues.
+*   **Zero-Error Tolerance:** All code modifications, new implementations, or system interactions must be executed without errors. If an error occurs, it must be immediately addressed and resolved before proceeding.
+*   **Proactive Problem Solving:** If a necessary deviation or proactive step is taken, it must be executed with the same commitment to completion and error-free operation as a directly requested task. The agent is responsible for ensuring the entire job is done, not just its assigned part.
+
 ## (Associated File Formatting Rules - From Part 4 of Unified Cursor Rulebook)
 
 These apply to all Markdown documentation generated or managed by AI agents.
