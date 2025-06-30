@@ -24,7 +24,7 @@ def main():
 
     if args.web:
         from . import web_app
-        web_app.app.run(debug=True, port=3000)
+        web_app.app.run(debug=True, port=3001)
         return
 
     if not args.url and not args.text:
