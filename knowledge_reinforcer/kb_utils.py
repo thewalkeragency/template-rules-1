@@ -28,8 +28,12 @@ INDEX_FILE = os.path.join(KB_BASE_DIR, 'kb_index.json')
 
 def get_next_sequence_number():
     """
-    Reads the counter file, increments the number, saves it back, and returns the new number.
-    Simple file-based counter, not designed for high concurrency.
+    Generates and returns the next unique sequence number for the knowledge base.
+    
+    Reads the current value from the counter file, increments it by one, updates the file, and returns the new value. Initializes the counter file and directory if they do not exist. Not intended for concurrent access.
+     
+    Returns:
+        int: The next sequence number.
     """
     try:
         if not os.path.exists(KB_BASE_DIR):
@@ -62,8 +66,10 @@ def get_next_sequence_number():
 
 def read_index():
     """
-    Reads and returns the list of metadata from kb_index.json.
-    Returns an empty list if the file doesn't exist or is empty/invalid.
+    Read and return the list of metadata items from the knowledge base index file.
+    
+    Returns:
+        list: A list of metadata dictionaries from the index file. Returns an empty list if the file does not exist, is empty, or contains invalid JSON.
     """
     try:
         if not os.path.exists(INDEX_FILE):
@@ -86,8 +92,9 @@ def read_index():
 
 def add_to_index(item_metadata):
     """
-    Appends new item metadata to kb_index.json.
-    item_metadata should be a dictionary.
+    Add a metadata dictionary to the knowledge base index file.
+    
+    Appends the provided metadata dictionary to the JSON index file, adding a 'date_saved' timestamp if not present. Raises a ValueError if the input is not a dictionary. On write failure, raises an exception.
     """
     if not isinstance(item_metadata, dict):
         raise ValueError("item_metadata must be a dictionary.")
