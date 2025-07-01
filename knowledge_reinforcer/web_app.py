@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from datetime import datetime
+from bs4 import BeautifulSoup
 import os
 import sys
 import yaml
@@ -12,6 +13,7 @@ from knowledge_reinforcer.processor import process_content_to_markdown
 from knowledge_reinforcer.storage import save_to_knowledge_base, BASE_KNOWLEDGE_DIR
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = 'a_very_secret_key_that_you_should_change'
 
 @app.route('/')
 def index():
@@ -62,7 +64,8 @@ def process_input():
             filename_base = re.sub(r'[^a-zA-Z0-9_]', '', title.replace(' ', '_'))[:50] or "untitled"
             filename = f"{filename_base}_{datetime.now().strftime('%Y%m%2d_%H%M%S')}.md"
             save_to_knowledge_base(filename, markdown_content, content_type)
-            return redirect(url_for('index', message="Content saved successfully!"))
+            flash("Content saved successfully!", 'success')
+            return redirect(url_for('index'))
         else:
             return "Error: Could not process content to markdown.", 400
     return "Error: No content provided.", 400
@@ -75,6 +78,7 @@ def browse():
             if file.endswith('.md'):
                 relative_path = os.path.relpath(os.path.join(root, file), BASE_KNOWLEDGE_DIR)
                 knowledge_files.append(relative_path)
+    knowledge_files.sort()
     return render_template('browse.html', files=knowledge_files)
 
 @app.route('/view/<path:filename>')
@@ -101,6 +105,45 @@ def view_file(filename):
     html_content = markdown.markdown(markdown_body)
 
     return render_template('view.html', content=html_content, metadata=metadata, filename=filename)
+
+@app.route('/analyze_content', methods=['POST'])
+def analyze_content():
+    url = request.json.get('url')
+    text = request.json.get('text')
+
+    raw_content = None
+    plain_text_content = ""
+
+    if url:
+        content_type = None
+        if "youtube.com/watch" in url or "youtu.be/" in url:
+            content_type = "youtube-video"
+        else:
+            content_type = "web-article"
+        
+        raw_content, _ = fetch_content(url, content_type)
+        if raw_content:
+            if content_type == "web-article":
+                plain_text_content = BeautifulSoup(raw_content, 'html.parser').get_text()
+            elif content_type == "youtube-video":
+                plain_text_content = raw_content # Transcript is already plain text
+    elif text:
+        plain_text_content = text
+
+    if plain_text_content:
+        from .processor import _clean_text
+        plain_text_content = _clean_text(plain_text_content)
+        # Generate summary (purpose) and keywords (tags)
+        from .processor import _generate_summary, _extract_keywords
+        auto_purpose = _generate_summary(plain_text_content)
+        if auto_purpose:
+            auto_purpose = "Relevant for AI coding: " + auto_purpose
+        auto_tags = ', '.join(_extract_keywords(plain_text_content))
+        print(f"Generated Purpose: {auto_purpose}")
+        print(f"Generated Tags: {auto_tags}")
+        return jsonify({'purpose': auto_purpose, 'tags': auto_tags})
+    
+    return jsonify({'purpose': '', 'tags': ''})
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)

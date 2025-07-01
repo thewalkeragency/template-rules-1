@@ -23,3 +23,7 @@ This document outlines the AI agents collaborating on this project, their roles,
 ## Interaction Protocol
 
 All agents are expected to adhere to the communication and hand-off protocols defined in their respective instruction files and the master development rules.
+
+### Agent Handover Log
+
+For seamless transitions and shared context, agents should consult and update the [Agent Handover Log](./.ai_rules/agent_logs/handover_log.md) when passing responsibilities or noting significant project updates.
