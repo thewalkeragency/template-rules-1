@@ -72,14 +72,37 @@ def process_input():
 
 @app.route('/browse')
 def browse():
-    knowledge_files = []
+    knowledge_items = []
     for root, _, files in os.walk(BASE_KNOWLEDGE_DIR):
         for file in files:
             if file.endswith('.md'):
-                relative_path = os.path.relpath(os.path.join(root, file), BASE_KNOWLEDGE_DIR)
-                knowledge_files.append(relative_path)
-    knowledge_files.sort()
-    return render_template('browse.html', files=knowledge_files)
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                metadata = {}
+                parts = content.split('---\n', 2)
+                if len(parts) > 1:
+                    try:
+                        metadata = yaml.safe_load(parts[1])
+                    except yaml.YAMLError as e:
+                        print(f"Error parsing YAML in {file}: {e}")
+
+                title = metadata.get('title', file.replace('.md', ''))
+                date_extracted_str = metadata.get('date_extracted')
+                date_extracted = datetime.fromisoformat(date_extracted_str) if date_extracted_str else datetime.min
+
+                relative_path = os.path.relpath(file_path, BASE_KNOWLEDGE_DIR)
+                knowledge_items.append({
+                    'filename': relative_path,
+                    'title': title,
+                    'date': date_extracted
+                })
+    
+    # Sort by date, newest first
+    knowledge_items.sort(key=lambda x: x['date'], reverse=True)
+
+    return render_template('browse.html', items=knowledge_items)
 
 @app.route('/view/<path:filename>')
 def view_file(filename):
@@ -124,7 +147,14 @@ def analyze_content():
         raw_content, _ = fetch_content(url, content_type)
         if raw_content:
             if content_type == "web-article":
-                plain_text_content = BeautifulSoup(raw_content, 'html.parser').get_text()
+                soup = BeautifulSoup(raw_content, 'html.parser')
+                # Extract text from common content tags
+                content_tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li']
+                extracted_texts = []
+                for tag in content_tags:
+                    for element in soup.find_all(tag):
+                        extracted_texts.append(element.get_text())
+                plain_text_content = " ".join(extracted_texts)
             elif content_type == "youtube-video":
                 plain_text_content = raw_content # Transcript is already plain text
     elif text:
