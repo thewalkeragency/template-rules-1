@@ -1,0 +1,2 @@
+# This file ensures the staging_area directory is tracked by Git.
+# Temporary markdown files processed but not yet approved by the user will be stored here.

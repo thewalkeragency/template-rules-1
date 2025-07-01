@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from datetime import datetime
 from bs4 import BeautifulSoup
 import os
 import sys
 import yaml
+import re
 
 # Add the parent directory to the sys.path to allow relative imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -13,7 +14,7 @@ from knowledge_reinforcer.processor import process_content_to_markdown
 from knowledge_reinforcer.storage import save_to_knowledge_base, BASE_KNOWLEDGE_DIR
 
 app = Flask(__name__, template_folder='templates')
-app.secret_key = 'a_very_secret_key_that_you_should_change'
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_very_dev_default_secret_key_for_flask_app_kb_project_v2') # Unique default key
 
 @app.route('/')
 def index():
@@ -60,7 +61,6 @@ def process_input():
             purpose
         )
         if markdown_content:
-            from knowledge_reinforcer.main import re # Import re here to avoid circular dependency
             filename_base = re.sub(r'[^a-zA-Z0-9_]', '', title.replace(' ', '_'))[:50] or "untitled"
             filename = f"{filename_base}_{datetime.now().strftime('%Y%m%2d_%H%M%S')}.md"
             save_to_knowledge_base(filename, markdown_content, content_type)
