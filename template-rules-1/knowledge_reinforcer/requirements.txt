@@ -1,0 +1,9 @@
+requests
+readability-lxml
+youtube-transcript-api
+markdownify
+PyYAML
+Flask
+markdown
+pytest
+pytest-mock

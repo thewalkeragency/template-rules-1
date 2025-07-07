@@ -1,0 +1,12 @@
+{
+  "mcp_version": "1.0",
+  "tool_id": "text_generator",
+  "parameters": {
+    "prompt": "Write a short story about a robot who discovers music.",
+    "max_tokens": 500
+  },
+  "context": {
+    "user_id": "user-12345",
+    "session_id": "session-abcde"
+  }
+}
