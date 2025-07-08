@@ -6,8 +6,9 @@ import re
 
 from .fetcher import fetch_content
 from .processor import process_content_to_markdown
-from .storage import save_to_knowledge_base
+from .storage import save_to_knowledge_base, BASE_KNOWLEDGE_DIR # Import BASE_KNOWLEDGE_DIR
 from .nltk_setup import ensure_nltk_resources
+from .kb_utils import add_to_index, get_next_sequence_number # Import kb_utils functions
 
 def main():
     # Ensure NLTK resources are available
@@ -58,7 +59,7 @@ def main():
         print("Storing direct text content.")
 
     if raw_content:
-        markdown_content = process_content_to_markdown(
+        markdown_content, extracted_metadata = process_content_to_markdown(
             raw_content,
             content_type,
             source_url,
@@ -67,11 +68,58 @@ def main():
             args.purpose
         )
         if markdown_content:
+            seq_no = get_next_sequence_number()
+
             # Sanitize filename: replace non-alphanumeric with underscores, limit length
+            # Prepend sequence number for uniqueness and order
             filename_base = re.sub(r'[^a-zA-Z0-9_]', '', title.replace(' ', '_'))[:50] or "untitled"
-            filename = f"{filename_base}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
-            save_to_knowledge_base(filename, markdown_content, content_type)
-            print(f"Content saved to knowledge base as {filename}.")
+            base_filename_with_seq = f"{seq_no:04d}_{filename_base}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+
+            # Determine the relative path for storage and for the index
+            # storage.py saves it into subdirectories like 'articles/', 'videos/'
+            # The filename in the index should reflect this relative path from BASE_KNOWLEDGE_DIR
+            relative_subdir = ""
+            if content_type == "web-article":
+                relative_subdir = 'articles'
+            elif content_type == "youtube-video":
+                relative_subdir = 'videos'
+            elif content_type == "direct-text":
+                relative_subdir = 'direct_text'
+            else:
+                relative_subdir = 'misc' # Fallback, though storage.py uses BASE_KNOWLEDGE_DIR directly
+
+            # Filename for storage (just the basename)
+            storage_filename = base_filename_with_seq
+            # Filename for index (relative path from knowledge_base root)
+            index_filename = os.path.join(relative_subdir, base_filename_with_seq) if relative_subdir else base_filename_with_seq
+
+            # Save the file
+            saved_filepath = save_to_knowledge_base(storage_filename, markdown_content, content_type)
+
+            if saved_filepath: # save_to_knowledge_base should return the full path or None
+                print(f"Content saved to: {saved_filepath}")
+
+                # Prepare metadata for the index
+                index_item_metadata = {
+                    "seq_no": seq_no,
+                    "filename": index_filename, # Store relative path
+                    "title": extracted_metadata.get("title"),
+                    "source_url": extracted_metadata.get("source_url"),
+                    "source_type": extracted_metadata.get("source_type"),
+                    "date_extracted": extracted_metadata.get("date_extracted"),
+                    "user_tags": extracted_metadata.get("user_tags"),
+                    "user_purpose": extracted_metadata.get("user_purpose"),
+                    "summary": extracted_metadata.get("summary"),
+                    "extracted_keywords": extracted_metadata.get("extracted_keywords")
+                    # kb_utils.add_to_index will add 'date_saved'
+                }
+                try:
+                    add_to_index(index_item_metadata)
+                    print(f"Successfully added '{title}' to knowledge base index.")
+                except Exception as e:
+                    print(f"Error adding to index: {e}")
+            else:
+                print(f"Failed to save content for '{title}'.")
         else:
             print(f"Could not process content to markdown.")
 

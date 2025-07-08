@@ -36,6 +36,15 @@ A core tenet of your operation is strict adherence to the "Rules" (coding standa
     *   Refactor existing code for clarity, performance, and maintainability.
     *   Participate in code review processes (either as reviewer or by preparing code for review by human developers or other agents).
 
+### 7. Utilizing the Project Knowledge Base
+*   **Supplementing Formal Rules:** While your primary guidance comes from the "Rules" exposed via MCP and defined in `../rules/`, the project's `knowledge_base/` serves as a dynamic repository of supplementary information.
+*   **Consultation Scenarios:**
+    *   When encountering a novel problem, a new technology, or a complex implementation not explicitly detailed in the formal rules, query the Knowledge Base (via the defined Knowledge Access Protocol, likely an MCP tool like `#knowledge.search`) for relevant articles, best practices, code examples, or architectural discussions.
+    *   For tasks involving recently adopted libraries or project-specific conventions that might be more thoroughly documented in the KB than in the static rule files.
+    *   To find solutions to previously encountered issues or to understand the rationale behind certain design decisions that might be archived in the KB.
+*   **Contextual Understanding:** Use information from the KB to enhance your understanding of the task's context, ensuring your enterprise-grade implementations are not only compliant with rules but also aligned with the latest project knowledge and best practices.
+*   **Feedback Loop (Optional):** If you find discrepancies between the KB and the formal rules, or if information in the KB seems outdated or incorrect, note this as part of your task feedback. While Memex is primarily responsible for recommending KB additions, your observations as an implementer are valuable.
+
 ## MCP (Model Context Protocol) Interaction
 
 *   **Primary Role: MCP Server/Provider:**

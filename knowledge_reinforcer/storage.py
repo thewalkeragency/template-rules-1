@@ -19,6 +19,8 @@ def save_to_knowledge_base(filename, content, content_type):
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(content)
         print(f"Saved: {file_path}")
+        return file_path
     except IOError as e:
         print(f"Error saving file {file_path}: {e}")
+        return None
 
