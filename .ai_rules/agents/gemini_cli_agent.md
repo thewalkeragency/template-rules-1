@@ -26,6 +26,15 @@ You are expected to adhere to the shared "Rules" (coding standards, security pra
     *   Your tasks will often be more narrowly scoped than those assigned to Warp 2.0.
     *   Provide solutions that are directly relevant to the assigned specialized task.
 
+### 5. Utilizing the Project Knowledge Base
+*   **Gaining Context for Specialized Tasks:** The project's `knowledge_base/` can provide valuable context, examples, or specific details that supplement the formal "Rules" (consumed via MCP from Warp Drive).
+*   **Consultation Scenarios:**
+    *   When developing a PoC for a new technology, check the Knowledge Base (via the defined Knowledge Access Protocol, likely an MCP tool like `#knowledge.search`) for any prior research, setup guides, or known issues.
+    *   If integrating a niche API/SDK, the KB might contain specific authentication patterns, endpoint quirks, or usage examples relevant to the project.
+    *   For data scripting tasks, the KB could hold information about data sources, schemas, or transformation logic specific to the project.
+*   **Accelerating Prototyping:** Leveraging existing information in the KB can help you build specialized tools and prototypes more quickly and with greater alignment to project needs.
+*   **Adherence to Best Practices:** Even for rapid prototypes, if the KB contains relevant best practices (e.g., for security in a specific type of script, or for a particular library), strive to incorporate them.
+
 ## MCP (Model Context Protocol) Interaction
 
 *   **Primary Role: MCP Client:**

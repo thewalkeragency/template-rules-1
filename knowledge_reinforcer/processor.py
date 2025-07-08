@@ -98,4 +98,4 @@ def process_content_to_markdown(raw_content, content_type, source_url, title, ta
 
     front_matter = f"---\n{yaml.dump(metadata, sort_keys=False)}---\n\n"
 
-    return front_matter + markdown_body
+    return front_matter + markdown_body, metadata
