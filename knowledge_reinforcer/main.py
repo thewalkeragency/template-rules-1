@@ -12,6 +12,11 @@ from .kb_utils import add_to_index, get_next_sequence_number # Import kb_utils f
 
 def main():
     # Ensure NLTK resources are available
+    """
+    Runs the command-line interface for extracting, processing, and storing content from a URL or direct text into a structured markdown knowledge base with metadata indexing.
+    
+    This function parses CLI arguments, fetches content from a web page, YouTube video, or direct text input, processes it into markdown, saves it in an organized directory structure, and updates the knowledge base index with relevant metadata. Supports both CLI and optional web interface modes. Provides user feedback and handles errors gracefully.
+    """
     ensure_nltk_resources()
 
     parser = argparse.ArgumentParser(description="Knowledge Reinforcer: Extracts content from various sources and stores it as structured markdown.")
