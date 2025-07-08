@@ -12,11 +12,17 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from knowledge_reinforcer.processor import _generate_summary, _extract_keywords
 from knowledge_reinforcer.fetcher import fetch_content
 from knowledge_reinforcer.web_app import app # Import the Flask app
+
 from knowledge_reinforcer.storage import BASE_KNOWLEDGE_DIR, save_to_knowledge_base
 
 @pytest.fixture
 def client():
     app.config['TESTING'] = True
+    # Dynamically set the template folder for the Flask app during testing
+    # This ensures Flask can find the templates regardless of the test runner's CWD
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    template_path = os.path.join(current_dir, '..', 'knowledge_reinforcer', 'templates')
+    app.jinja_env.loader.searchpath = [template_path]
     with app.test_client() as client:
         yield client
 

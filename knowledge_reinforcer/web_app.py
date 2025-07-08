@@ -13,7 +13,8 @@ from knowledge_reinforcer.fetcher import fetch_content
 from knowledge_reinforcer.processor import process_content_to_markdown
 from knowledge_reinforcer.storage import save_to_knowledge_base, BASE_KNOWLEDGE_DIR
 
-app = Flask(__name__, template_folder='templates')
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
+app = Flask(__name__, template_folder=template_dir)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'a_very_dev_default_secret_key_for_flask_app_kb_project_v2') # Unique default key
 
 @app.route('/')

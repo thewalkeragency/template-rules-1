@@ -7,3 +7,5 @@ Flask
 markdown
 pytest
 pytest-mock
+nltk
+rake_nltk
