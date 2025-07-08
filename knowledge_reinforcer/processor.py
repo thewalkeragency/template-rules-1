@@ -65,6 +65,22 @@ def _extract_keywords(text, num_keywords=3):
     return ranked_phrases[:num_keywords]
 
 def process_content_to_markdown(raw_content, content_type, source_url, title, tags, purpose):
+    """
+    Converts raw content of various types into markdown format with YAML metadata, including summary and extracted keywords.
+    
+    Parameters:
+        raw_content: The original content to process (HTML, transcript, or plain text).
+        content_type: The type of content ("web-article", "youtube-video", or "direct-text").
+        source_url: The URL where the content originated, or None.
+        title: The title to include in the metadata.
+        tags: User-provided tags for the content.
+        purpose: The intended purpose or context for the content.
+    
+    Returns:
+        A tuple containing:
+            - A string with YAML front matter and markdown-formatted content.
+            - A dictionary of the metadata used in the front matter.
+    """
     markdown_body = ""
     text_for_processing = "" # Use a consistent variable name for text used in summarization/keyword extraction
 
