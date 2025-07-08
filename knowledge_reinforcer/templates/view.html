@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ metadata.get('title', 'View Item') }}</title>
+</head>
+<body>
+    <h1>{{ metadata.get('title', 'View Item') }}</h1>
+    <nav>
+        <a href="{{ url_for('browse') }}">Back to Browse</a>
+    </nav>
+    <hr>
+    <h2>Metadata:</h2>
+    <ul>
+        {% for key, value in metadata.items() %}
+            <li><strong>{{ key|capitalize }}:</strong> {{ value }}</li>
+        {% endfor %}
+        <li><strong>Filename:</strong> {{ filename }}</li>
+    </ul>
+    <hr>
+    <h2>Content:</h2>
+    <div>
+        {{ content|safe }}
+    </div>
+</body>
+</html>

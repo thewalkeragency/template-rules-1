@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Reinforcer</title>
+</head>
+<body>
+    <h1>Knowledge Reinforcer</h1>
+    <p>This is the main page.</p>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('browse') }}">Browse Knowledge Base</a></li>
+        </ul>
+    </nav>
+    <h2>Add New Content</h2>
+    <form action="{{ url_for('process_input') }}" method="post">
+        <div>
+            <label for="url">URL:</label>
+            <input type="url" id="url" name="url" style="width: 400px;">
+        </div>
+        <br>
+        <div>
+            <label for="text">Or Direct Text:</label><br>
+            <textarea id="text" name="text" rows="5" cols="60"></textarea>
+        </div>
+        <br>
+        <div>
+            <label for="tags">Tags (comma-separated):</label>
+            <input type="text" id="tags" name="tags">
+        </div>
+        <br>
+        <div>
+            <label for="purpose">Purpose/Summary:</label><br>
+            <textarea id="purpose" name="purpose" rows="3" cols="60"></textarea>
+        </div>
+        <br>
+        <button type="submit">Save Content</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif
+    %}
+    {% endwith %}
+</body>
+</html>

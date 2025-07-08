@@ -169,3 +169,5 @@ Thumbs.db
 # Environment variables
 .env
 
+# NLTK Data
+knowledge_reinforcer/nltk_data/
